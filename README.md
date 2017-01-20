@@ -10,6 +10,8 @@
 - 펀드나, 환율의 경우는 실시간 정보를 보여주지 않습니다.
 
 
+### [다운로드](https://github.com/sungminoh/alfred-workflow-stockprice/releases/tag/1.0)
+
 -------------
 
 ## Stock Price Checker
@@ -22,4 +24,7 @@ this is an Alfred workflow for checking realtime stock price of Korean market.
 
 - You can see [Naver finance](http://finance.naver.com/) page by `enter` key.
 - No detail information for funds and currencies.
+
+
+### [Download](https://github.com/sungminoh/alfred-workflow-stockprice/releases/tag/1.0)
 
