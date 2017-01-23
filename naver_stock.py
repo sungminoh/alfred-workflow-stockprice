@@ -96,7 +96,7 @@ def get_json(url):
 def format_num(num, decimal=None):
     if not decimal:
         decimal = 0
-    return ('{:,.%sf}' % decimal).format(int(num))
+    return ('{:,.%sf}' % decimal).format(float(num))
 
 
 def get_query():
@@ -125,8 +125,8 @@ def print_alfred_format(items):
                 aq=format_num(detail['aq']),
                 hv=format_num(detail['hv']),
                 lv=format_num(detail['lv']),
-                eps=format_num(int(detail['nv'])/int(detail['eps']), 2) + '배',
-                bps=format_num(int(detail['nv'])/int(detail['bps']), 2) + '배')
+                eps=format_num(float(detail['nv'])/float(detail['eps']), 2) + '배',
+                bps=format_num(float(detail['nv'])/float(detail['bps']), 2) + '배')
             item_text = '<item arg="%s"><title>%s</title><subtitle>%s</subtitle></item>' % (item['url'], title, subtitle)
         except Exception as e:
             print e
