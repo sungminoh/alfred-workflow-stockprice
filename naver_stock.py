@@ -40,7 +40,7 @@ sys.setdefaultencoding("utf-8")
 LIST_URL = u'http://ac.finance.naver.com:11002/ac?q=%s&q_enc=euc-kr&st=111&frm=stock&r_format=json&r_enc=euc-kr&r_unicode=0&t_koreng=1&r_lt=111'
 SEARCH_URL = u'http://finance.naver.com/search/search.nhn?query=%s'
 POLLING_URL = u'http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITEM:%s'
-FAVORATE_FILE = 'favorate.pickle'
+FAVORITE_FILE = 'favorite.pickle'
 ITEM_TEXT = '<item arg="{url}"><title>{title}</title><subtitle>{subtitle}</subtitle></item>'
 
 
@@ -112,65 +112,65 @@ def search():
         print_alfred_items(build_alfred_items(get_items(get_query(sys.argv[2:]))))
     else:
         items = []
-        for label in load_favorates():
+        for label in load_favorites():
             items.extend(get_items(label))
         print_alfred_items(build_alfred_items(items))
 
 
 def search_for_delete():
     items = []
-    for label in load_favorates():
+    for label in load_favorites():
         items.extend(get_items(label))
     alfred_items = build_alfred_items(items)
     alfred_items.insert(0, u'<item><title>삭제하고 싶은 종목을 선택하세요.</title></item>')
     print_alfred_items(alfred_items)
 
 
-def load_favorates():
-    if exists(FAVORATE_FILE):
-        with open(FAVORATE_FILE, 'rb') as f:
+def load_favorites():
+    if exists(FAVORITE_FILE):
+        with open(FAVORITE_FILE, 'rb') as f:
             return pickle.load(f)
     else:
         return []
 
 
-def set_favorate():
+def set_favorite():
     url = sys.argv[2]
     label = url[re.search('query=', url).end():re.search('%20', url).start()]
-    if exists(FAVORATE_FILE):
-        with open(FAVORATE_FILE, 'rb') as f:
-            favorates = pickle.load(f)
-            favorates.append(label)
+    if exists(FAVORITE_FILE):
+        with open(FAVORITE_FILE, 'rb') as f:
+            favorites = pickle.load(f)
+            favorites.append(label)
     else:
-        favorates = [label]
-    with open(FAVORATE_FILE, 'wb') as f:
-        pickle.dump(favorates, f)
+        favorites = [label]
+    with open(FAVORITE_FILE, 'wb') as f:
+        pickle.dump(favorites, f)
 
 
-def del_favorate():
+def del_favorite():
     url = sys.argv[2]
     label = url[re.search('query=', url).end():re.search('%20', url).start()]
-    if exists(FAVORATE_FILE):
-        with open(FAVORATE_FILE, 'rb') as f:
-            favorates = pickle.load(f)
+    if exists(FAVORITE_FILE):
+        with open(FAVORITE_FILE, 'rb') as f:
+            favorites = pickle.load(f)
         try:
-            favorates.remove(label)
+            favorites.remove(label)
         except:
             pass
     else:
-        favorates = []
-    with open(FAVORATE_FILE, 'wb') as f:
-        pickle.dump(favorates, f)
+        favorites = []
+    with open(FAVORITE_FILE, 'wb') as f:
+        pickle.dump(favorites, f)
 
 
-def reset_favorate():
-    if exists(FAVORATE_FILE):
-        remove(FAVORATE_FILE)
+def reset_favorite():
+    if exists(FAVORITE_FILE):
+        remove(FAVORITE_FILE)
 
 
-router = dict(set_favorate=set_favorate,
-              del_favorate=del_favorate,
-              reset_favorate=reset_favorate,
+router = dict(set_favorite=set_favorite,
+              del_favorite=del_favorite,
+              reset_favorite=reset_favorite,
               search=search,
               search_for_delete=search_for_delete)
 
