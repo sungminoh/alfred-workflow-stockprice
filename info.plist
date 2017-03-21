@@ -6,6 +6,19 @@
 	<string>com.sungmin.finance</string>
 	<key>connections</key>
 	<dict>
+		<key>353F3F01-1A78-48D5-9C98-562A99D30A12</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>95115FFE-CE16-4B54-BF54-AA74186E76F2</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>65701404-C17E-4B7F-A629-33B885553873</key>
 		<array>
 			<dict>
@@ -15,6 +28,54 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>39A783F5-87D9-42E9-BFD0-7E46C5774C84</string>
+				<key>modifiers</key>
+				<integer>262144</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>AEFF9B06-B122-42C3-B1BD-FE195370908F</string>
+				<key>modifiers</key>
+				<integer>524288</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>B20B8BB1-D12D-4EB9-89B1-C0AD6D22893D</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>39A783F5-87D9-42E9-BFD0-7E46C5774C84</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>EAF2D294-5249-49F2-AD6D-0CDCAC1B3379</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>AEFF9B06-B122-42C3-B1BD-FE195370908F</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 	</dict>
@@ -31,10 +92,12 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>plusspaces</key>
-				<false/>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
 				<key>url</key>
-				<string>http://{query}</string>
+				<string>{query}</string>
 				<key>utf8</key>
 				<true/>
 			</dict>
@@ -43,13 +106,15 @@
 			<key>uid</key>
 			<string>C4387A70-9FCF-4162-B851-EA5534C50892</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
 				<key>argumenttype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>keyword</key>
@@ -65,7 +130,13 @@
 				<key>runningsubtext</key>
 				<string>잠시만 기다려주세요.</string>
 				<key>script</key>
-				<string>python naver_stock.py {query}</string>
+				<string>python naver_stock.py search {query}</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
 				<key>title</key>
 				<string>네이버 금융</string>
 				<key>type</key>
@@ -78,25 +149,247 @@
 			<key>uid</key>
 			<string>65701404-C17E-4B7F-A629-33B885553873</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>118</integer>
+				<key>script</key>
+				<string>python naver_stock.py set_favorite {query}</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>39A783F5-87D9-42E9-BFD0-7E46C5774C84</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>ss</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>python naver_stock.py search {query}</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>즐겨찾기에 등록하고 싶은 종목을 검색하세요.</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>B20B8BB1-D12D-4EB9-89B1-C0AD6D22893D</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>sd</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>python naver_stock.py search_for_delete</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>삭제하고 싶은 종목을 선택하세요.</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>EAF2D294-5249-49F2-AD6D-0CDCAC1B3379</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>python naver_stock.py del_favorite {query}</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>AEFF9B06-B122-42C3-B1BD-FE195370908F</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>python naver_stock.py reset_favorite</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>95115FFE-CE16-4B54-BF54-AA74186E76F2</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>sr</string>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>즐겨찾기를 초기화 합니다.</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>353F3F01-1A78-48D5-9C98-562A99D30A12</string>
+			<key>version</key>
+			<integer>1</integer>
 		</dict>
 	</array>
 	<key>readme</key>
-	<string></string>
+	<string>https://github.com/sungminoh/alfred-workflow-stockprice/blob/master/README.md</string>
 	<key>uidata</key>
 	<dict>
+		<key>353F3F01-1A78-48D5-9C98-562A99D30A12</key>
+		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<real>310</real>
+		</dict>
+		<key>39A783F5-87D9-42E9-BFD0-7E46C5774C84</key>
+		<dict>
+			<key>xpos</key>
+			<integer>500</integer>
+			<key>ypos</key>
+			<real>110</real>
+		</dict>
 		<key>65701404-C17E-4B7F-A629-33B885553873</key>
 		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
 			<key>ypos</key>
-			<real>150</real>
+			<real>10</real>
+		</dict>
+		<key>95115FFE-CE16-4B54-BF54-AA74186E76F2</key>
+		<dict>
+			<key>xpos</key>
+			<integer>500</integer>
+			<key>ypos</key>
+			<real>310</real>
+		</dict>
+		<key>AEFF9B06-B122-42C3-B1BD-FE195370908F</key>
+		<dict>
+			<key>xpos</key>
+			<integer>500</integer>
+			<key>ypos</key>
+			<real>210</real>
+		</dict>
+		<key>B20B8BB1-D12D-4EB9-89B1-C0AD6D22893D</key>
+		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<real>110</real>
 		</dict>
 		<key>C4387A70-9FCF-4162-B851-EA5534C50892</key>
 		<dict>
+			<key>xpos</key>
+			<integer>500</integer>
 			<key>ypos</key>
-			<real>150</real>
+			<integer>10</integer>
+		</dict>
+		<key>EAF2D294-5249-49F2-AD6D-0CDCAC1B3379</key>
+		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<real>210</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>
-	<string></string>
+	<string>https://github.com/sungminoh/alfred-workflow-stockprice/releases</string>
 </dict>
 </plist>

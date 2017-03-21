@@ -67,9 +67,7 @@ def get_json(url):
     return data
 
 
-def format_num(num, decimal=None):
-    if not decimal:
-        decimal = 0
+def format_num(num, decimal=0):
     return ('{:,.%sf}' % decimal).format(float(num))
 
 

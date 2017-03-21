@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """
     nv: 현재가
     cd: 종목코드
@@ -34,151 +33,147 @@ from os.path import exists
 from os import remove
 import re
 import sys
+from workflow import Workflow
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-LIST_URL = u'http://ac.finance.naver.com:11002/ac?q=%s&q_enc=euc-kr&st=111&frm=stock&r_format=json&r_enc=euc-kr&r_unicode=0&t_koreng=1&r_lt=111'
-SEARCH_URL = u'http://finance.naver.com/search/search.nhn?query=%s'
-POLLING_URL = u'http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITEM:%s'
-FAVORITE_FILE = 'favorite.pickle'
-ITEM_TEXT = '<item arg="{url}"><title>{title}</title><subtitle>{subtitle}</subtitle></item>'
 
+class Stock(Workflow):
+    LIST_URL = u'http://ac.finance.naver.com:11002/ac?q=%s&q_enc=euc-kr&st=111&frm=stock&r_format=json&r_enc=euc-kr&r_unicode=0&t_koreng=1&r_lt=111'
+    SEARCH_URL = u'http://finance.naver.com/search/search.nhn?query=%s'
+    POLLING_URL = u'http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITEM:%s'
+    FAVORITE_FILE = './favorite.pickle'
 
-def build_alfred_items(items):
-    alfred_items = []
-    for item in items:
-        values = defaultdict(str)
-        # URL, Polling URL, Detail object
-        with ignored(Exception):
-            values['url'] = SEARCH_URL % encode(item['label'] + ' ' + item['name'])
-        with ignored(Exception):
-            values['polling_url'] = POLLING_URL % item['code']
-        with ignored(Exception):
-            values['detail'] = get_json(values['polling_url'])['result']['areas'][0]['datas'][0]
-        detail = values['detail']
-        try:
-            # process detail data
+    def __init__(self, *args):
+        super(Stock, self).__init__()
+        self.arg_string = get_query(args)
+
+    def add(self, title, subtitle='', url=None, icon=None):
+        self.add_item(title, subtitle, modifier_subtitles={'ctrl': '즐겨찾기에 추가합니다.', 'alt': '즐겨찾기에서 삭제합니다.'}, arg=url, icon=icon)
+
+    def build_alfred_items(self, items):
+        for item in items:
+            values = defaultdict(str)
+            # URL, Polling URL, Detail object
             with ignored(Exception):
-                values['nm'] = detail['nm']
+                values['url'] = Stock.SEARCH_URL % encode(item['label'] + ' ' + item['name'])
             with ignored(Exception):
-                values['nv'] = '￦' + format_num(detail['nv'])
+                values['polling_url'] = Stock.POLLING_URL % item['code']
             with ignored(Exception):
-                values['sign'] = '+' if detail['nv'] >= detail['pcv'] else '-'
-            with ignored(Exception):
-                values['cr'] = format_num(detail['cr'], 2)
-            with ignored(Exception):
-                values['cv'] = format_num(detail['cv'])
-            with ignored(Exception):
-                values['space'] = 45 - len(detail['nm'].encode('euc-kr'))
-            with ignored(Exception):
-                values['aq'] = format_num(detail['aq'])
-            with ignored(Exception):
-                values['hv'] = format_num(detail['hv'])
-            with ignored(Exception):
-                values['lv'] = format_num(detail['lv'])
-            with ignored(Exception):
-                values['eps'] = format_num(float(detail['nv'])/float(detail['eps']), 2) + '배'
-            with ignored(Exception):
-                values['bps'] = format_num(float(detail['nv'])/float(detail['bps']), 2) + '배'
-            # unpack dictionary
-            url, polling_url, nm, nv, sign, cr, cv, space, aq, hv, lv, eps, bps = \
-                map(values.get, ('url', 'polling_url', 'nm', 'nv', 'sign', 'cr', 'cv', 'space', 'aq', 'hv', 'lv', 'eps', 'bps'))
-            # 종목 현재가 (+ 비율% 변동)
-            title = (u'{nm}{nv:>%s} ( {sign} {cr} %%, {cv})' % space).format(nm=nm, nv=nv, sign=sign, cr=cr, cv=cv)
-            subtitle = u'{market} 거래량: {aq}  고가: {hv}  저가: {lv}  PER: {eps}  PBR: {bps}'.format(market=item['market'], aq=aq, hv=hv, lv=lv, eps=eps, bps=bps)
-            item_text = ITEM_TEXT.format(url=url, title=title, subtitle=subtitle)
-        except:
-            item_text = ITEM_TEXT.format(url=url, title=item['name'], subtitle=item['market'])
-        alfred_items.append(item_text.encode('utf-8'))
-    return alfred_items
+                values['detail'] = get_json(values['polling_url'])['result']['areas'][0]['datas'][0]
+            detail = values['detail']
+            try:
+                # process detail data
+                with ignored(Exception):
+                    values['nm'] = detail['nm']
+                with ignored(Exception):
+                    values['nv'] = '￦ ' + format_num(detail['nv'])
+                with ignored(Exception):
+                    if detail['nv'] > detail['pcv']:
+                        values['sign'] = '+'
+                        icon = './icons/red-arrow-up.png'
+                    elif detail['nv'] < detail['pcv']:
+                        values['sign'] = '-'
+                        icon = './icons/blue-arrow-down.png'
+                    else:
+                        values['sign'] = ' '
+                        icon = ''
+                with ignored(Exception):
+                    values['cr'] = format_num(detail['cr'], 2)
+                with ignored(Exception):
+                    values['cv'] = format_num(detail['cv'])
+                with ignored(Exception):
+                    values['space'] = 40 - len(detail['nm'].encode('euc-kr'))
+                with ignored(Exception):
+                    values['aq'] = format_num(detail['aq'])
+                with ignored(Exception):
+                    values['hv'] = format_num(detail['hv'])
+                with ignored(Exception):
+                    values['lv'] = format_num(detail['lv'])
+                with ignored(Exception):
+                    values['eps'] = format_num(float(detail['nv'])/float(detail['eps']), 2) + '배'
+                with ignored(Exception):
+                    values['bps'] = format_num(float(detail['nv'])/float(detail['bps']), 2) + '배'
+                # unpack dictionary
+                url, polling_url, nm, nv, sign, cr, cv, space, aq, hv, lv, eps, bps = \
+                    map(values.get, ('url', 'polling_url', 'nm', 'nv', 'sign', 'cr', 'cv', 'space', 'aq', 'hv', 'lv', 'eps', 'bps'))
+                # 종목 현재가 (+ 비율% 변동)
+                title = (u'{nm:<%s}\t{nv:<15}\t( {sign} {cr} %%, {cv})' % space).format(nm=nm, nv=nv, sign=sign, cr=cr, cv=cv)
+                subtitle = u'{market} 거래량: {aq}  고가: {hv}  저가: {lv}  PER: {eps}  PBR: {bps}'.format(market=item['market'], aq=aq, hv=hv, lv=lv, eps=eps, bps=bps)
+                self.add(title, subtitle, url, icon)
+            except:
+                self.add(item['name'], item['market'], url, icon)
 
+    @staticmethod
+    def load_favorites():
+        if exists(Stock.FAVORITE_FILE):
+            items = []
+            with open(Stock.FAVORITE_FILE, 'rb') as f:
+                for label in pickle.load(f):
+                    items.extend(Stock.get_items(label))
+            return items
+        else:
+            return []
 
-def print_alfred_items(alfred_items):
-    print '<items>'
-    for item in alfred_items:
-        print item
-    print '</items>'
+    @staticmethod
+    def get_items(query):
+        url = Stock.LIST_URL % query
+        data = get_json(url)[u'items']
+        items = data_to_dic(data)
+        return items
 
+    def search(self):
+        if self.arg_string:
+            items = Stock.get_items(self.arg_string)
+        else:
+            items = Stock.load_favorites()
+        self.build_alfred_items(items)
 
-def get_items(query):
-    url = LIST_URL % query
-    data = get_json(url)[u'items']
-    items = data_to_dic(data)
-    return items
+    def search_for_delete(self):
+        self.add('삭제하고 싶은 종목을 선택하세요.')
+        items = Stock.load_favorites()
+        self.build_alfred_items(items)
 
+    def set_favorite(self):
+        url = sys.argv[2]
+        label = url[re.search('query=', url).end():re.search('%20', url).start()]
+        if exists(Stock.FAVORITE_FILE):
+            with open(Stock.FAVORITE_FILE, 'rb') as f:
+                favorites = pickle.load(f)
+                favorites.append(label)
+        else:
+            favorites = [label]
+        with open(Stock.FAVORITE_FILE, 'wb') as f:
+            pickle.dump(favorites, f)
 
-def search():
-    if sys.argv[2:]:
-        print_alfred_items(build_alfred_items(get_items(get_query(sys.argv[2:]))))
-    else:
-        items = []
-        for label in load_favorites():
-            items.extend(get_items(label))
-        print_alfred_items(build_alfred_items(items))
+    def del_favorite(self):
+        url = self.arg_string
+        label = url[re.search('query=', url).end():re.search('%20', url).start()]
+        if exists(Stock.FAVORITE_FILE):
+            with open(Stock.FAVORITE_FILE, 'rb') as f:
+                favorites = pickle.load(f)
+            try:
+                favorites.remove(label)
+            except:
+                pass
+        else:
+            favorites = []
+        with open(Stock.FAVORITE_FILE, 'wb') as f:
+            pickle.dump(favorites, f)
 
+    def reset_favorite(self):
+        if exists(Stock.FAVORITE_FILE):
+            remove(Stock.FAVORITE_FILE)
 
-def search_for_delete():
-    items = []
-    for label in load_favorites():
-        items.extend(get_items(label))
-    alfred_items = build_alfred_items(items)
-    alfred_items.insert(0, u'<item><title>삭제하고 싶은 종목을 선택하세요.</title></item>')
-    print_alfred_items(alfred_items)
-
-
-def load_favorites():
-    if exists(FAVORITE_FILE):
-        with open(FAVORITE_FILE, 'rb') as f:
-            return pickle.load(f)
-    else:
-        return []
-
-
-def set_favorite():
-    url = sys.argv[2]
-    label = url[re.search('query=', url).end():re.search('%20', url).start()]
-    if exists(FAVORITE_FILE):
-        with open(FAVORITE_FILE, 'rb') as f:
-            favorites = pickle.load(f)
-            favorites.append(label)
-    else:
-        favorites = [label]
-    with open(FAVORITE_FILE, 'wb') as f:
-        pickle.dump(favorites, f)
-
-
-def del_favorite():
-    url = sys.argv[2]
-    label = url[re.search('query=', url).end():re.search('%20', url).start()]
-    if exists(FAVORITE_FILE):
-        with open(FAVORITE_FILE, 'rb') as f:
-            favorites = pickle.load(f)
-        try:
-            favorites.remove(label)
-        except:
-            pass
-    else:
-        favorites = []
-    with open(FAVORITE_FILE, 'wb') as f:
-        pickle.dump(favorites, f)
-
-
-def reset_favorite():
-    if exists(FAVORITE_FILE):
-        remove(FAVORITE_FILE)
-
-
-router = dict(set_favorite=set_favorite,
-              del_favorite=del_favorite,
-              reset_favorite=reset_favorite,
-              search=search,
-              search_for_delete=search_for_delete)
+    def run(self, func):
+        getattr(self, func)()
 
 
 def main():
     command = sys.argv[1]
-    router[command]()
-
+    stock = Stock(*sys.argv[2:])
+    stock.run(command)
+    stock.send_feedback()
 
 if __name__ == '__main__':
     main()
