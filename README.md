@@ -1,3 +1,11 @@
+<p align="center"><img src="https://cloud.githubusercontent.com/assets/11041693/24129920/0f8b3560-0e29-11e7-8e59-363e5202af00.png" align="center" width="500"></p>
+
+
+
+#### latest release. 2017.03.21
+
+
+
 ## 주가 확인 Alfred Workflow
 
 간편하게 주가를 확인하기 위한 Alfred workflow입니다
