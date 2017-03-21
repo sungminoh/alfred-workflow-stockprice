@@ -25,7 +25,7 @@
 - 즐겨찾기를 모두 삭제합니다.
 
 
-### [다운로드](https://github.com/sungminoh/alfred-workflow-stockprice/releases/tag/2.0.1)
+### [다운로드](https://github.com/sungminoh/alfred-workflow-stockprice/releases/download/3.0/stockprice_checker_v3.0.0.alfredworkflow)
 
 -------------
 
@@ -56,4 +56,4 @@ this is an Alfred workflow for checking the realtime stock price of the Korean m
 - removes all favorites
 
 
-### [download](https://github.com/sungminoh/alfred-workflow-stockprice/releases/tag/2.0.1)
+### [download](https://github.com/sungminoh/alfred-workflow-stockprice/releases/download/3.0/stockprice_checker_v3.0.0.alfredworkflow)
