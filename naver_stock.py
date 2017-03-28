@@ -46,7 +46,7 @@ class Stock(Workflow):
 
     def __init__(self, *args):
         super(Stock, self).__init__()
-        self.arg_string = get_query(args)
+        self.arguments = args
 
     def add(self, title, subtitle='', url=None, icon=None):
         self.add_item(title, subtitle, modifier_subtitles={'ctrl': '즐겨찾기에 추가합니다.', 'alt': '즐겨찾기에서 삭제합니다.'}, arg=url, icon=icon)
@@ -123,8 +123,9 @@ class Stock(Workflow):
         return items
 
     def search(self):
-        if self.arg_string:
-            items = Stock.get_items(self.arg_string)
+        query = get_query(self.arguments)
+        if query:
+            items = Stock.get_items(query)
         else:
             items = Stock.load_favorites()
         self.build_alfred_items(items)
@@ -135,7 +136,7 @@ class Stock(Workflow):
         self.build_alfred_items(items)
 
     def set_favorite(self):
-        url = sys.argv[2]
+        url = self.arguments[0]
         label = url[re.search('query=', url).end():re.search('%20', url).start()]
         if exists(Stock.FAVORITE_FILE):
             with open(Stock.FAVORITE_FILE, 'rb') as f:
@@ -147,7 +148,7 @@ class Stock(Workflow):
             pickle.dump(favorites, f)
 
     def del_favorite(self):
-        url = self.arg_string
+        url = self.arguments[0]
         label = url[re.search('query=', url).end():re.search('%20', url).start()]
         if exists(Stock.FAVORITE_FILE):
             with open(Stock.FAVORITE_FILE, 'rb') as f:
@@ -174,6 +175,7 @@ def main():
     stock = Stock(*sys.argv[2:])
     stock.run(command)
     stock.send_feedback()
+
 
 if __name__ == '__main__':
     main()
