@@ -23,7 +23,7 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>C4387A70-9FCF-4162-B851-EA5534C50892</string>
+				<string>8831F781-72CF-4C27-BD53-2B79A55F43F7</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -93,18 +93,18 @@
 			<key>config</key>
 			<dict>
 				<key>browser</key>
-				<string></string>
+				<string>com.mojobytes.browserninja</string>
 				<key>spaces</key>
 				<string></string>
 				<key>url</key>
 				<string>{query}</string>
 				<key>utf8</key>
-				<true/>
+				<false/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.openurl</string>
 			<key>uid</key>
-			<string>C4387A70-9FCF-4162-B851-EA5534C50892</string>
+			<string>8831F781-72CF-4C27-BD53-2B79A55F43F7</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -126,7 +126,7 @@
 				<key>queuedelaymode</key>
 				<integer>0</integer>
 				<key>queuemode</key>
-				<integer>1</integer>
+				<integer>2</integer>
 				<key>runningsubtext</key>
 				<string>잠시만 기다려주세요.</string>
 				<key>script</key>
@@ -192,7 +192,7 @@
 				<key>queuedelaymode</key>
 				<integer>0</integer>
 				<key>queuemode</key>
-				<integer>1</integer>
+				<integer>2</integer>
 				<key>runningsubtext</key>
 				<string></string>
 				<key>script</key>
@@ -235,7 +235,7 @@
 				<key>queuedelaymode</key>
 				<integer>0</integer>
 				<key>queuemode</key>
-				<integer>1</integer>
+				<integer>2</integer>
 				<key>runningsubtext</key>
 				<string></string>
 				<key>script</key>
@@ -351,7 +351,14 @@
 			<key>xpos</key>
 			<integer>300</integer>
 			<key>ypos</key>
-			<real>10</real>
+			<integer>10</integer>
+		</dict>
+		<key>8831F781-72CF-4C27-BD53-2B79A55F43F7</key>
+		<dict>
+			<key>xpos</key>
+			<integer>500</integer>
+			<key>ypos</key>
+			<integer>10</integer>
 		</dict>
 		<key>95115FFE-CE16-4B54-BF54-AA74186E76F2</key>
 		<dict>
@@ -373,13 +380,6 @@
 			<integer>300</integer>
 			<key>ypos</key>
 			<real>110</real>
-		</dict>
-		<key>C4387A70-9FCF-4162-B851-EA5534C50892</key>
-		<dict>
-			<key>xpos</key>
-			<integer>500</integer>
-			<key>ypos</key>
-			<integer>10</integer>
 		</dict>
 		<key>EAF2D294-5249-49F2-AD6D-0CDCAC1B3379</key>
 		<dict>

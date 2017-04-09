@@ -49,7 +49,7 @@ class Stock(Workflow):
         self.arguments = args
 
     def add(self, title, subtitle='', url=None, icon=None):
-        self.add_item(title, subtitle, modifier_subtitles={'ctrl': '즐겨찾기에 추가합니다.', 'alt': '즐겨찾기에서 삭제합니다.'}, arg=url, icon=icon)
+        self.add_item(title, subtitle, valid=True, modifier_subtitles={'ctrl': '즐겨찾기에 추가합니다.', 'alt': '즐겨찾기에서 삭제합니다.'}, arg=url, icon=icon)
 
     def build_alfred_items(self, items):
         for item in items:
