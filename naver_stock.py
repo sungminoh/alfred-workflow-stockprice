@@ -27,6 +27,8 @@
 """
 
 from helper import data_to_dic, get_json, format_num, get_query, encode, ignored
+from multiprocessing import Process, Queue
+from itertools import chain
 import cPickle as pickle
 from collections import defaultdict
 from os.path import exists
@@ -107,19 +109,26 @@ class Stock(Workflow):
     @staticmethod
     def load_favorites():
         if exists(Stock.FAVORITE_FILE):
-            items = []
             with open(Stock.FAVORITE_FILE, 'rb') as f:
+                queue = Queue()
+                procs = []
                 for label in pickle.load(f):
-                    items.extend(Stock.get_items(label))
-            return items
+                    proc = Process(target=Stock.get_items, args=(label, queue))
+                    procs.append(proc)
+                    proc.start()
+                for proc in procs:
+                    proc.join()
+                return chain(*[queue.get() for _ in procs])
         else:
             return []
 
     @staticmethod
-    def get_items(query):
+    def get_items(query, store=None):
         url = Stock.LIST_URL % query
         data = get_json(url)[u'items']
         items = data_to_dic(data)
+        if store:
+            store.put(items)
         return items
 
     def search(self):
