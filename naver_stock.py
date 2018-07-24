@@ -58,7 +58,7 @@ class Stock(Workflow):
             values = defaultdict(str)
             # URL, Polling URL, Detail object
             with ignored(Exception):
-                values['url'] = Stock.SEARCH_URL % encode(item['label'] + ' ' + item['name'])
+                values['url'] = Stock.SEARCH_URL % encode(item['label'])
             with ignored(Exception):
                 values['polling_url'] = Stock.POLLING_URL % item['code']
             with ignored(Exception):
