@@ -42,7 +42,7 @@ sys.setdefaultencoding("utf-8")
 
 class Stock(Workflow):
     LIST_URL = u'http://ac.finance.naver.com:11002/ac?q=%s&q_enc=euc-kr&st=111&frm=stock&r_format=json&r_enc=euc-kr&r_unicode=0&t_koreng=1&r_lt=111'
-    SEARCH_URL = u'http://finance.naver.com/search/search.nhn?query=%s'
+    SEARCH_URL = u'https://finance.naver.com/item/main.nhn?code=%s'
     POLLING_URL = u'http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITEM:%s'
     FAVORITE_FILE = './favorite.pickle'
 
@@ -118,7 +118,7 @@ class Stock(Workflow):
                     proc.start()
                 for proc in procs:
                     proc.join()
-                return chain(*[queue.get() for _ in procs])
+                return sorted(chain(*[queue.get() for _ in procs]), key=lambda x: x['name'])
         else:
             return []
 
@@ -146,7 +146,7 @@ class Stock(Workflow):
 
     def set_favorite(self):
         url = self.arguments[0]
-        label = url[re.search('query=', url).end():re.search('%20', url).start()]
+        label = re.search(r'code=([^&]*)', url).groups()[0]
         if exists(Stock.FAVORITE_FILE):
             with open(Stock.FAVORITE_FILE, 'rb') as f:
                 favorites = pickle.load(f)
@@ -158,7 +158,7 @@ class Stock(Workflow):
 
     def del_favorite(self):
         url = self.arguments[0]
-        label = url[re.search('query=', url).end():re.search('%20', url).start()]
+        label = re.search(r'code=([^&]*)', url).groups()[0]
         if exists(Stock.FAVORITE_FILE):
             with open(Stock.FAVORITE_FILE, 'rb') as f:
                 favorites = pickle.load(f)

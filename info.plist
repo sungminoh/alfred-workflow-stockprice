@@ -92,27 +92,12 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>browser</key>
-				<string>com.mojobytes.browserninja</string>
-				<key>spaces</key>
-				<string></string>
-				<key>url</key>
-				<string>{query}</string>
-				<key>utf8</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.openurl</string>
-			<key>uid</key>
-			<string>8831F781-72CF-4C27-BD53-2B79A55F43F7</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -154,6 +139,25 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>8831F781-72CF-4C27-BD53-2B79A55F43F7</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -179,6 +183,10 @@
 			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>escaping</key>
@@ -222,6 +230,10 @@
 			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -286,6 +298,27 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>sr</string>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>즐겨찾기를 초기화 합니다.</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>353F3F01-1A78-48D5-9C98-562A99D30A12</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -305,27 +338,6 @@
 			<string>95115FFE-CE16-4B54-BF54-AA74186E76F2</string>
 			<key>version</key>
 			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>keyword</key>
-				<string>sr</string>
-				<key>subtext</key>
-				<string></string>
-				<key>text</key>
-				<string>즐겨찾기를 초기화 합니다.</string>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>353F3F01-1A78-48D5-9C98-562A99D30A12</string>
-			<key>version</key>
-			<integer>1</integer>
 		</dict>
 	</array>
 	<key>readme</key>
