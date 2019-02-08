@@ -41,7 +41,7 @@ sys.setdefaultencoding("utf-8")
 
 
 class Stock(Workflow):
-    LIST_URL = u'http://ac.finance.naver.com:11002/ac?q=%s&q_enc=euc-kr&st=111&frm=stock&r_format=json&r_enc=euc-kr&r_unicode=0&t_koreng=1&r_lt=111'
+    LIST_URL = u'https://ac.finance.naver.com:11002/ac?q=%s&q_enc=euc-kr&st=111&frm=stock&r_format=json&r_enc=euc-kr&r_unicode=0&t_koreng=1&r_lt=111'
     SEARCH_URL = u'https://finance.naver.com/item/main.nhn?code=%s'
     POLLING_URL = u'http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITEM:%s'
     FAVORITE_FILE = './favorite.pickle'
