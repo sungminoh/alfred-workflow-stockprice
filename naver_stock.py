@@ -27,7 +27,8 @@
 """
 
 from helper import data_to_dic, get_json, format_num, get_query, encode, ignored
-from multiprocessing import Process, Queue
+from multiprocessing import Queue
+from threading import Thread
 from itertools import chain
 import cPickle as pickle
 from collections import defaultdict
@@ -41,7 +42,7 @@ sys.setdefaultencoding("utf-8")
 
 
 class Stock(Workflow):
-    LIST_URL = u'https://ac.finance.naver.com:11002/ac?q=%s&q_enc=euc-kr&st=111&frm=stock&r_format=json&r_enc=euc-kr&r_unicode=0&t_koreng=1&r_lt=111'
+    LIST_URL = u'https://ac.finance.naver.com/ac?q=%s&q_enc=euc-kr&st=111&frm=stock&r_format=json&r_enc=euc-kr&r_unicode=0&t_koreng=1&r_lt=111'
     SEARCH_URL = u'https://finance.naver.com/item/main.nhn?code=%s'
     POLLING_URL = u'http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITEM:%s'
     FAVORITE_FILE = './favorite.pickle'
@@ -93,9 +94,9 @@ class Stock(Workflow):
                 with ignored(Exception):
                     values['lv'] = format_num(detail['lv'])
                 with ignored(Exception):
-                    values['eps'] = format_num(float(detail['nv'])/float(detail['eps']), 2) + '배'
+                    values['eps'] = format_num(float(detail['nv']) / float(detail['eps']), 2) + '배'
                 with ignored(Exception):
-                    values['bps'] = format_num(float(detail['nv'])/float(detail['bps']), 2) + '배'
+                    values['bps'] = format_num(float(detail['nv']) / float(detail['bps']), 2) + '배'
                 # unpack dictionary
                 url, polling_url, nm, nv, sign, cr, cv, space, aq, hv, lv, eps, bps = \
                     map(values.get, ('url', 'polling_url', 'nm', 'nv', 'sign', 'cr', 'cv', 'space', 'aq', 'hv', 'lv', 'eps', 'bps'))
@@ -103,7 +104,7 @@ class Stock(Workflow):
                 title = (u'{nm:<%s}\t{nv:<15}\t( {sign} {cr} %%, {cv})' % space).format(nm=nm, nv=nv, sign=sign, cr=cr, cv=cv)
                 subtitle = u'{market} 거래량: {aq}  고가: {hv}  저가: {lv}  PER: {eps}  PBR: {bps}'.format(market=item['market'], aq=aq, hv=hv, lv=lv, eps=eps, bps=bps)
                 self.add(title, subtitle, url, icon)
-            except:
+            except Exception:
                 self.add(item['name'], item['market'], url, icon)
 
     @staticmethod
@@ -113,7 +114,7 @@ class Stock(Workflow):
                 queue = Queue()
                 procs = []
                 for label in pickle.load(f):
-                    proc = Process(target=Stock.get_items, args=(label, queue))
+                    proc = Thread(target=Stock.get_items, args=(label, queue))
                     procs.append(proc)
                     proc.start()
                 for proc in procs:
@@ -164,7 +165,7 @@ class Stock(Workflow):
                 favorites = pickle.load(f)
             try:
                 favorites.remove(label)
-            except:
+            except Exception:
                 pass
         else:
             favorites = []
