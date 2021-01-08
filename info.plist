@@ -86,7 +86,7 @@
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>네이버 금융</string>
+	<string>Naver finance</string>
 	<key>objects</key>
 	<array>
 		<dict>
@@ -96,6 +96,8 @@
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -134,7 +136,7 @@
 			<key>uid</key>
 			<string>65701404-C17E-4B7F-A629-33B885553873</string>
 			<key>version</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -185,6 +187,8 @@
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -223,7 +227,7 @@
 			<key>uid</key>
 			<string>B20B8BB1-D12D-4EB9-89B1-C0AD6D22893D</string>
 			<key>version</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -232,6 +236,8 @@
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -270,7 +276,7 @@
 			<key>uid</key>
 			<string>EAF2D294-5249-49F2-AD6D-0CDCAC1B3379</string>
 			<key>version</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -401,6 +407,10 @@
 			<real>210</real>
 		</dict>
 	</dict>
+	<key>variablesdontexport</key>
+	<array/>
+	<key>version</key>
+	<string>3.0.6</string>
 	<key>webaddress</key>
 	<string>https://github.com/sungminoh/alfred-workflow-stockprice/releases</string>
 </dict>

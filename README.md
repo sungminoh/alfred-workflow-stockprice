@@ -2,7 +2,7 @@
 
 
 
-#### latest release. 2017.03.28
+#### latest release. 2020.01.08
 
 
 
@@ -33,7 +33,7 @@
 - 즐겨찾기를 모두 삭제합니다.
 
 
-### [다운로드](https://github.com/sungminoh/alfred-workflow-stockprice/releases/download/3.0.2/stockprice_checker_v3.0.2.alfredworkflow)
+### [다운로드](https://github.com/sungminoh/alfred-workflow-stockprice/releases/download/3.0.6/Naver.finance.alfredworkflow)
 
 -------------
 
@@ -64,4 +64,4 @@ this is an Alfred workflow for checking the realtime stock price of the Korean m
 - removes all favorites
 
 
-### [download](https://github.com/sungminoh/alfred-workflow-stockprice/releases/download/3.0.2/stockprice_checker_v3.0.2.alfredworkflow)
+### [download](https://github.com/sungminoh/alfred-workflow-stockprice/releases/download/3.0.6/Naver.finance.alfredworkflow)
